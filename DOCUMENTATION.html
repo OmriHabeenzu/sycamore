@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sycamore System — Documentation</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@700;800&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    font-size: 13.5px;
+    line-height: 1.75;
+    color: #1a2e1f;
+    background: #fff;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 48px 48px 80px;
+  }
+
+  /* Cover */
+  .cover {
+    background: linear-gradient(135deg, #193c27 0%, #265c3c 60%, #2d7249 100%);
+    color: white;
+    padding: 64px 56px;
+    border-radius: 16px;
+    margin-bottom: 48px;
+    page-break-after: always;
+  }
+  .cover-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #86efac;
+    margin-bottom: 20px;
+  }
+  .cover h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .cover .subtitle {
+    font-size: 15px;
+    color: #bbf7d0;
+    margin-bottom: 48px;
+  }
+  .cover-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    padding-top: 24px;
+  }
+  .cover-meta-item label {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #86efac;
+    margin-bottom: 4px;
+  }
+  .cover-meta-item span {
+    font-size: 13px;
+    color: #fff;
+    font-weight: 500;
+  }
+
+  /* TOC */
+  .toc {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin-bottom: 48px;
+    page-break-after: always;
+  }
+  .toc h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #265c3c;
+    margin-bottom: 16px;
+  }
+  .toc ol {
+    padding-left: 20px;
+    columns: 2;
+    column-gap: 32px;
+  }
+  .toc li {
+    margin-bottom: 6px;
+    font-size: 13px;
+    break-inside: avoid;
+  }
+  .toc a {
+    color: #265c3c;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  /* Sections */
+  h1.section-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: #193c27;
+    border-bottom: 3px solid #265c3c;
+    padding-bottom: 8px;
+    margin: 48px 0 20px;
+  }
+  h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #265c3c;
+    margin: 28px 0 10px;
+  }
+  h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: #1a2e1f;
+    margin: 20px 0 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  p { margin-bottom: 12px; }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0 24px;
+    font-size: 12.5px;
+  }
+  th {
+    background: #265c3c;
+    color: white;
+    padding: 9px 12px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 11.5px;
+  }
+  td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #e5f3eb;
+    vertical-align: top;
+  }
+  tr:nth-child(even) td { background: #f8fdf9; }
+
+  /* Code blocks */
+  pre {
+    background: #0d2317;
+    color: #86efac;
+    padding: 16px 20px;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    margin: 12px 0 20px;
+    line-height: 1.6;
+  }
+  code {
+    background: #e6f4ec;
+    color: #193c27;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+  }
+  pre code { background: none; color: #86efac; padding: 0; }
+
+  /* Lists */
+  ul, ol {
+    padding-left: 22px;
+    margin-bottom: 14px;
+  }
+  li { margin-bottom: 5px; }
+
+  /* Callout boxes */
+  .callout {
+    border-left: 4px solid #265c3c;
+    background: #f0fdf4;
+    padding: 14px 18px;
+    border-radius: 0 8px 8px 0;
+    margin: 16px 0;
+    font-size: 13px;
+  }
+  .callout.warn {
+    border-left-color: #d4841f;
+    background: #fdf8f0;
+  }
+  .callout.danger {
+    border-left-color: #dc2626;
+    background: #fef2f2;
+  }
+  .callout strong { display: block; margin-bottom: 4px; }
+
+  /* Status badges */
+  .badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .badge.done { background: #dcfce7; color: #166534; }
+  .badge.pending { background: #fef3c7; color: #92400e; }
+  .badge.future { background: #f3f4f6; color: #6b7280; }
+
+  /* Section number chips */
+  .section-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: #265c3c;
+    color: white;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+
+  /* Credentials box */
+  .creds {
+    background: #0d2317;
+    color: #86efac;
+    padding: 16px 20px;
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+    font-size: 12.5px;
+    margin: 12px 0 20px;
+    line-height: 2;
+  }
+  .creds .label { color: #6ee7b7; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; }
+
+  /* Page breaks */
+  .page-break { page-break-before: always; }
+
+  /* Print optimizations */
+  @media print {
+    body { padding: 0; max-width: 100%; font-size: 12px; }
+    .cover { border-radius: 0; }
+    pre { white-space: pre-wrap; word-break: break-all; }
+    h1.section-title { page-break-before: always; }
+    table { page-break-inside: avoid; }
+    .callout { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER PAGE -->
+<div class="cover">
+  <div class="cover-label">System Documentation — Confidential</div>
+  <h1>Sycamore Agricultural Services Cooperative</h1>
+  <p class="subtitle">Complete System Documentation — Admin Dashboard, Member Portal, Public Website &amp; Laravel API</p>
+  <div class="cover-meta">
+    <div class="cover-meta-item"><label>Managed By</label><span>Stalwart Services Limited</span></div>
+    <div class="cover-meta-item"><label>Document Date</label><span>June 2026</span></div>
+    <div class="cover-meta-item"><label>System Version</label><span>1.1 — Member Portal Release</span></div>
+    <div class="cover-meta-item"><label>Status</label><span>Active Development</span></div>
+  </div>
+</div>
+
+<!-- TABLE OF CONTENTS -->
+<div class="toc">
+  <h2>Table of Contents</h2>
+  <ol>
+    <li><a href="#s1">System Overview</a></li>
+    <li><a href="#s2">Folder Structure</a></li>
+    <li><a href="#s3">Tech Stack</a></li>
+    <li><a href="#s4">Local Development Setup</a></li>
+    <li><a href="#s5">Test Credentials</a></li>
+    <li><a href="#s6">How the System Works</a></li>
+    <li><a href="#s7">Admin Dashboard Guide</a></li>
+    <li><a href="#s8">Member Portal Guide</a></li>
+    <li><a href="#s9">Public Website Guide</a></li>
+    <li><a href="#s10">API Reference Summary</a></li>
+    <li><a href="#s11">Database Overview</a></li>
+    <li><a href="#s12">Deployment Guide</a></li>
+    <li><a href="#s13">What Is Complete</a></li>
+    <li><a href="#s14">What Is Remaining</a></li>
+    <li><a href="#s15">Known Issues &amp; Notes</a></li>
+  </ol>
+</div>
+
+<!-- SECTION 1 -->
+<h1 class="section-title" id="s1"><span class="section-num">1</span> System Overview</h1>
+<p>Sycamore is a digital management platform for <strong>Sycamore Agricultural Services Cooperative</strong> — a real SACCO (Savings and Credit Cooperative Organization) based in Zambia, managed by <strong>Stalwart Services Limited</strong>. This is a <strong>single-tenant system</strong> — built exclusively for Sycamore cooperative.</p>
+
+<table>
+  <tr><th>Part</th><th>Purpose</th><th>Local URL</th></tr>
+  <tr><td><strong>Laravel API</strong></td><td>Backend — all business logic, database, authentication</td><td><code>http://localhost:8000/api</code></td></tr>
+  <tr><td><strong>Admin Dashboard</strong></td><td>Staff/admin interface — manage members, loans, savings, reports</td><td><code>http://localhost:5173</code></td></tr>
+  <tr><td><strong>Member Portal</strong></td><td>Self-service section for members — view accounts, apply for loans, request withdrawals</td><td><code>http://localhost:5173/my</code></td></tr>
+  <tr><td><strong>Public Website</strong></td><td>Public-facing — information, news, membership applications</td><td><code>http://localhost:5174</code></td></tr>
+</table>
+
+<h2>How a SACCO Works</h2>
+<ul>
+  <li>Members save a fixed amount every month (contributions)</li>
+  <li>All member savings form a shared pool</li>
+  <li>Members borrow from this pool at low interest rates (limited to 3× their savings balance)</li>
+  <li>Interest earned stays in the cooperative</li>
+  <li>At year end, profits are distributed as dividends proportional to each member's savings</li>
+  <li>The cooperative is member-owned — one member, one vote</li>
+</ul>
+
+<!-- SECTION 2 -->
+<h1 class="section-title" id="s2"><span class="section-num">2</span> Folder Structure</h1>
+<pre>c:\laragon\www\lms\
+│
+├── lms\                         ← Laravel backend (PHP)
+│   ├── app\Http\Controllers\Api\    ← 22+ API controllers
+│   ├── app\Models\                  ← 28+ Eloquent models
+│   ├── app\Services\               ← Business logic (loan schedule generation)
+│   ├── database\migrations\         ← 27 migration files applied
+│   ├── routes\api.php               ← All API routes
+│   ├── .env                         ← Local environment config
+│   ├── Dockerfile                   ← For Railway/Render deployment
+│   └── railway.json                 ← Railway deployment config
+│
+├── frontend\                    ← Admin Dashboard + Member Portal (React + Vite)
+│   └── src\
+│       ├── pages\                   ← All dashboard + member portal pages
+│       │   ├── member\              ← Member portal pages (/my/*)
+│       │   ├── borrowers\           ← Member management + savings compliance
+│       │   ├── loans\               ← Loan lifecycle pages
+│       │   ├── savings\             ← Savings account pages
+│       │   ├── withdrawals\         ← Withdrawal request management
+│       │   ├── welfare\             ← Welfare fund management
+│       │   ├── staff\               ← Staff & access management
+│       │   ├── profile\             ← User profile page
+│       │   └── ...                  ← Other feature pages
+│       ├── layouts\                 ← DashboardLayout, MemberLayout, AuthLayout
+│       ├── components\              ← Sidebar, ProtectedRoute, shared UI
+│       ├── store\slices\            ← Redux state (auth)
+│       └── api\axios.js             ← Axios client with base URL + auth header
+│
+├── website\                     ← Public Website (React + Vite)
+│   ├── src\pages\                   ← Home, About, Products, Membership, News, Contact
+│   ├── dist\                        ← Built/deployable website files
+│   └── public\logo.svg              ← Sycamore logo file
+│
+└── start.bat                    ← Starts all three services at once</pre>
+
+<!-- SECTION 3 -->
+<h1 class="section-title" id="s3"><span class="section-num">3</span> Tech Stack</h1>
+<table>
+  <tr><th>Layer</th><th>Technology</th><th>Notes</th></tr>
+  <tr><td>Backend language</td><td>PHP 8.3</td><td><code>C:\laragon\bin\php\php-8.3.26-Win32-vs16-x64\php.exe</code></td></tr>
+  <tr><td>Backend framework</td><td>Laravel 11</td><td>Sanctum token auth, Eloquent ORM</td></tr>
+  <tr><td>Database (local)</td><td>MySQL / MariaDB</td><td>via Laragon — database name: <code>lms</code></td></tr>
+  <tr><td>Database (production)</td><td>PostgreSQL</td><td>via Railway</td></tr>
+  <tr><td>UI Framework</td><td>React 19</td><td>Both admin dashboard and public website</td></tr>
+  <tr><td>Build tool</td><td>Vite 8</td><td></td></tr>
+  <tr><td>CSS</td><td>Tailwind CSS 3</td><td>Emerald/green palette for admin; bush green for website</td></tr>
+  <tr><td>Routing</td><td>React Router v7</td><td></td></tr>
+  <tr><td>State management</td><td>Redux Toolkit</td><td>Auth state (user, token)</td></tr>
+  <tr><td>HTTP Client</td><td>Axios</td><td></td></tr>
+  <tr><td>Icons</td><td>Lucide React</td><td></td></tr>
+  <tr><td>Charts</td><td>Recharts</td><td>Admin dashboard only</td></tr>
+  <tr><td>Node.js</td><td>v22</td><td><code>C:\laragon\bin\nodejs\node-v22\node.exe</code></td></tr>
+</table>
+
+<!-- SECTION 4 -->
+<h1 class="section-title" id="s4"><span class="section-num">4</span> Local Development Setup</h1>
+
+<h2>Prerequisites</h2>
+<ul>
+  <li>Laragon running (provides PHP 8.3 + MySQL)</li>
+  <li>Node.js v22 installed</li>
+  <li><code>lms</code> database created in MySQL (via phpMyAdmin or HeidiSQL)</li>
+</ul>
+
+<h2>Quick Start — All Services</h2>
+<p>Double-click <code>c:\laragon\www\lms\start.bat</code> — opens three terminal windows:</p>
+<table>
+  <tr><th>Service</th><th>URL</th><th>Command</th></tr>
+  <tr><td>Laravel API</td><td>http://localhost:8000</td><td><code>php artisan serve</code> in <code>lms/lms/</code></td></tr>
+  <tr><td>Admin Dashboard + Member Portal</td><td>http://localhost:5173</td><td><code>npm run dev</code> in <code>lms/frontend/</code></td></tr>
+  <tr><td>Public Website</td><td>http://localhost:5174</td><td><code>npm run dev</code> in <code>lms/website/</code></td></tr>
+</table>
+
+<h2>First-Time Setup Commands</h2>
+<pre># 1. Install Laravel PHP dependencies
+cd c:\laragon\www\lms\lms
+composer install
+
+# 2. Run all database migrations (27 migrations)
+php artisan migrate
+
+# 3. Create the storage symlink (for profile photos and uploads)
+php artisan storage:link
+
+# 4. Install admin dashboard dependencies
+cd c:\laragon\www\lms\frontend
+npm install
+
+# 5. Install website dependencies
+cd c:\laragon\www\lms\website
+npm install</pre>
+
+<h2>Key Environment Variables</h2>
+<p><strong>Backend</strong> — file: <code>lms/lms/.env</code></p>
+<pre>APP_URL=http://localhost:8000
+DB_DATABASE=lms
+DB_USERNAME=root
+DB_PASSWORD=          ← empty for Laragon default
+FILESYSTEM_DISK=public</pre>
+
+<p><strong>Admin Frontend</strong> — file: <code>lms/frontend/.env</code></p>
+<pre>VITE_API_URL=http://localhost:8000/api</pre>
+
+<p><strong>Public Website</strong> — file: <code>lms/website/.env</code></p>
+<pre>VITE_API_URL=http://localhost:8000/api</pre>
+
+<div class="callout warn">
+  <strong>Storage Symlink Required</strong>
+  Run <code>php artisan storage:link</code> once after setup. This creates the <code>public/storage</code> symlink so uploaded profile photos and documents are served correctly.
+</div>
+
+<!-- SECTION 5 -->
+<h1 class="section-title" id="s5"><span class="section-num">5</span> Test Credentials</h1>
+<p>These accounts are for local development and testing only.</p>
+
+<h2>Admin / Staff Dashboard — <code>http://localhost:5173</code></h2>
+<div class="creds">
+  <span class="label">Admin Account</span><br/>
+  Email &nbsp;&nbsp;&nbsp;: omrihabeenzu1@gmail.com<br/>
+  Password : (set during initial setup / database seed)<br/>
+  Role &nbsp;&nbsp;&nbsp;&nbsp;: admin — full access to all features
+</div>
+
+<h2>Member Portal — <code>http://localhost:5173/login</code> → redirects to <code>/my</code></h2>
+<div class="creds">
+  <span class="label">Test Member Account</span><br/>
+  Email &nbsp;&nbsp;&nbsp;: member@sycamore.test<br/>
+  Password : Member123<br/>
+  Linked to: Borrower ID 1 (James H)
+</div>
+
+<div class="callout">
+  <strong>Creating New Member Accounts</strong>
+  Members are auto-created when a Borrower is approved. Go to <strong>Members</strong> → open a pending member → click <strong>Approve</strong>. A modal shows the generated login email and temporary password (format: <code>ABCD123</code>). If the member's email is already in use by a staff account, the login email falls back to <code>[phone]@sycamore.member</code>.
+</div>
+
+<!-- SECTION 6 -->
+<h1 class="section-title" id="s6"><span class="section-num">6</span> How the System Works</h1>
+
+<h2>User Roles &amp; Permissions</h2>
+<table>
+  <tr><th>Role</th><th>Access Level</th></tr>
+  <tr><td><code>admin</code></td><td>Full access to everything. Can manage staff permissions, loan products, settings. The only role that can see the Settings page and Loan Products page.</td></tr>
+  <tr><td><code>manager</code> / <code>loan_officer</code> / <code>cashier</code> / <code>staff</code></td><td>Access restricted by permission flags granted by admin. Cannot see Settings or Loan Products.</td></tr>
+  <tr><td><code>member</code></td><td>Member portal only (<code>/my/*</code>). Can view own accounts, apply for loans, request withdrawals.</td></tr>
+</table>
+
+<h2>Staff Permissions</h2>
+<p>Admin goes to <strong>Staff &amp; Access</strong> to create staff accounts and set what each person can see. Each permission is a toggle:</p>
+<ul>
+  <li>Members, Contributions, Share Capital, Groups</li>
+  <li>Savings, Loans, Repayments, Dividends</li>
+  <li>Expenses, Welfare Fund, Reports, Governance</li>
+  <li>Inbox, News</li>
+</ul>
+<p>Staff cannot see <strong>Settings</strong> (prevents self-promotion to admin) or <strong>Loan Products</strong> (interest rates are admin-only).</p>
+
+<h2>Authentication Flow</h2>
+<ol>
+  <li>User logs in with email + password at <code>/login</code></li>
+  <li>Laravel Sanctum issues a secure API token</li>
+  <li>Token stored in <code>localStorage</code>; sent with every request as <code>Authorization: Bearer {token}</code></li>
+  <li>After login: members are redirected to <code>/my</code>, staff/admin to <code>/</code></li>
+</ol>
+
+<h2>Member Lifecycle</h2>
+<pre>Website Form Submitted (status = pending)
+        ↓
+Admin Reviews Application in Dashboard
+        ↓
+Orientation Conducted, Agreement Signed
+        ↓
+Admin Clicks "Approve" → status = active
+Member Portal Account Auto-Created (email + generated password shown)
+        ↓
+Member Makes First Contribution + Savings Deposit
+        ↓
+Monthly Contributions Continue
+        ↓
+Member Eligible for Loans (up to 3× savings balance)
+        ↓
+Dividends Paid at Year End</pre>
+
+<h2>Loan Eligibility — 3× Savings Rule</h2>
+<p>A member cannot borrow more than <strong>3 times their total savings balance</strong>. This applies both when staff create a loan and when a member applies from the member portal. Example: if a member has K2,000 in savings, they can borrow a maximum of K6,000.</p>
+
+<h2>Loan Lifecycle</h2>
+<pre>Applied (pending) → Approved → Disbursed → Active → [Repayments] → Closed
+                  ↘ Rejected                        ↘ Overdue / Written Off</pre>
+<ul>
+  <li><strong>Interest methods:</strong> Flat Rate or Reducing Balance</li>
+  <li><strong>Repayment frequencies:</strong> Daily, Weekly, Biweekly, Monthly, Quarterly</li>
+  <li><strong>Schedule generation:</strong> Full amortization table created automatically on disbursement</li>
+</ul>
+
+<h2>Savings &amp; Withdrawals</h2>
+<ul>
+  <li>Each member has one or more Savings Accounts (separate from contributions)</li>
+  <li>Supports deposits, withdrawals, and annual interest posting</li>
+  <li><strong>Withdrawal workflow:</strong> member or staff submits a request → admin/staff approves → savings balance is deducted and a transaction is recorded. Members cannot directly withdraw; all withdrawals require approval.</li>
+</ul>
+
+<h2>Welfare Fund</h2>
+<ul>
+  <li>Members pay a welfare contribution per period (e.g., monthly)</li>
+  <li>Members or next-of-kin can submit claims (bereavement, medical, emergency, other)</li>
+  <li>Admin reviews and approves/rejects claims, sets the approved amount</li>
+  <li>Admin marks approved claims as paid when the money is disbursed</li>
+</ul>
+
+<h2>Savings Compliance</h2>
+<p>The Savings Compliance page shows which members are meeting their agreed monthly savings commitment. Staff can select any month and see a progress bar per member showing contributions received vs. their commitment amount.</p>
+
+<h2>Contributions vs Savings Accounts</h2>
+<ul>
+  <li><strong>Contributions</strong> — monthly SACCO savings recorded by staff (tracked against a commitment amount)</li>
+  <li><strong>Savings Accounts</strong> — a flexible savings account per member with full transaction history</li>
+</ul>
+
+<h2>Dividends</h2>
+<p>At year end, admin calculates dividends based on total cooperative profit and each member's proportional savings. The system computes per-member amounts, allows review, approval, and marks as distributed once paid.</p>
+
+<!-- SECTION 7 -->
+<h1 class="section-title page-break" id="s7"><span class="section-num">7</span> Admin Dashboard Guide</h1>
+<p>Login URL: <code>http://localhost:5173</code> &nbsp;|&nbsp; Admin account required for full access.</p>
+
+<h2>Dashboard</h2>
+<p>Overview cards: total members, active loans, total savings, outstanding balance, loan collection rate, overdue count. 6-month disbursement trend chart. Recent loans and latest repayments.</p>
+
+<h2>Members</h2>
+<ul>
+  <li>List with search (name/phone), status filter (pending / active / inactive / suspended / rejected)</li>
+  <li>Member detail: full profile, tabs for Loans, Savings, Shares, Contributions, Documents</li>
+  <li>Approve / Reject pending applications — approval auto-creates a member portal account</li>
+  <li>Printable member statement</li>
+  <li>Documents: upload NRC copy, pay slips, signed agreements</li>
+</ul>
+
+<h2>Savings Compliance</h2>
+<p>Select a month → see all active members with progress bars showing contributions received vs. their monthly commitment. Highlights members who are behind.</p>
+
+<h2>Loan Products <em>(Admin only)</em></h2>
+<p>Define templates: name, interest rate, interest method (flat/reducing), min/max amounts, min/max term, processing fees. Staff cannot see or edit these.</p>
+
+<h2>Loans</h2>
+<table>
+  <tr><th>Action</th><th>Description</th></tr>
+  <tr><td>Create Loan</td><td>Select member and product; preview full repayment schedule before submitting</td></tr>
+  <tr><td>Approve / Reject</td><td>Required before disbursement; checks share value eligibility</td></tr>
+  <tr><td>Disburse</td><td>Confirm payment made; full amortization schedule generated</td></tr>
+  <tr><td>Record Repayment</td><td>Enter amount received; printable receipt available</td></tr>
+  <tr><td>Top-Up</td><td>Add principal to an active loan</td></tr>
+  <tr><td>Restructure</td><td>Modify terms (term, rate, frequency) of an active loan</td></tr>
+  <tr><td>Write-Off</td><td>Mark irrecoverable loans</td></tr>
+  <tr><td>Guarantors / Collateral / Charges</td><td>All managed from the loan detail page</td></tr>
+</table>
+
+<h2>Savings</h2>
+<p>View all savings accounts, record deposits/withdrawals, post annual interest. Each account shows full transaction history.</p>
+
+<h2>Withdrawal Requests</h2>
+<p>Pending withdrawal requests from members (submitted via member portal) or staff. Approve → savings balance deducted + transaction recorded. Reject → no balance change. Filter by status (pending / approved / rejected).</p>
+
+<h2>Contributions</h2>
+<p>Record monthly contributions per member. View per-member contribution history. Manage contribution schedules (committed monthly amount per member).</p>
+
+<h2>Welfare Fund</h2>
+<ul>
+  <li><strong>Summary:</strong> total contributions collected, total disbursed, current fund balance, pending claims count</li>
+  <li><strong>Contributions tab:</strong> record member welfare contributions per period (YYYY-MM)</li>
+  <li><strong>Claims tab:</strong> review submitted claims, approve/reject with notes and amount, mark approved claims as paid</li>
+</ul>
+
+<h2>Reports</h2>
+<table>
+  <tr><th>Report</th><th>What It Shows</th></tr>
+  <tr><td>Collections Sheet</td><td>All repayments in a date range</td></tr>
+  <tr><td>Portfolio Report</td><td>Active loans — totals and outstanding balances</td></tr>
+  <tr><td>Aging Analysis</td><td>Overdue loans grouped by days overdue</td></tr>
+  <tr><td>Officer Performance</td><td>Repayments grouped by loan officer</td></tr>
+  <tr><td>Income Statement</td><td>Revenue (interest, fees) vs. expenses</td></tr>
+  <tr><td>Balance Sheet</td><td>Assets, liabilities, and member equity</td></tr>
+</table>
+
+<h2>Governance</h2>
+<ul>
+  <li><strong>Board members</strong> — record elected officials with their roles and terms</li>
+  <li><strong>Meeting minutes</strong> — store minutes from board and general meetings</li>
+</ul>
+
+<h2>Inbox</h2>
+<p>View contact form submissions from the public website. Reply directly, and see live chat sessions from the website chat widget.</p>
+
+<h2>News</h2>
+<p>Create, edit, and publish news/announcements. Published articles are displayed on the public website's News page.</p>
+
+<h2>Staff &amp; Access <em>(Admin only)</em></h2>
+<p>Create staff accounts and manage their permissions. Each staff member gets a generated temporary password. Admin controls exactly which sections each staff member can access via 14 permission toggles.</p>
+
+<h2>Settings <em>(Admin only)</em></h2>
+<ul>
+  <li><strong>Company:</strong> SACCO name, contact information, logo</li>
+  <li><strong>Users:</strong> legacy user management (use Staff &amp; Access for new staff)</li>
+  <li><strong>SMS logs:</strong> history of all system SMS messages sent</li>
+</ul>
+
+<h2>Profile (All Users)</h2>
+<p>Every logged-in user (staff and members) can access <code>/profile</code> to: edit name and phone, upload a profile photo, and change their password. The profile photo appears in the sidebar. Email address cannot be changed.</p>
+
+<!-- SECTION 8 -->
+<h1 class="section-title page-break" id="s8"><span class="section-num">8</span> Member Portal Guide</h1>
+<p>URL: <code>http://localhost:5173/login</code> → after login, redirected to <code>http://localhost:5173/my</code></p>
+<p>The member portal is part of the same React app as the admin dashboard but uses a separate layout and separate routes (<code>/my/*</code>). Members only see their own data.</p>
+
+<h2>Member Portal Pages</h2>
+<table>
+  <tr><th>Page</th><th>URL</th><th>What It Shows</th></tr>
+  <tr><td>Overview</td><td>/my</td><td>Savings balance, max loan allowed (3× savings), active loans count, next repayment due, overdue alert</td></tr>
+  <tr><td>My Loans</td><td>/my/loans</td><td>All loans with status; expandable repayment schedule per loan; Apply for Loan button</td></tr>
+  <tr><td>My Savings</td><td>/my/savings</td><td>All savings accounts with transaction history; Withdraw button per account; withdrawal request history</td></tr>
+  <tr><td>Contributions</td><td>/my/contributions</td><td>All monthly contributions on record</td></tr>
+  <tr><td>Shares</td><td>/my/shares</td><td>Share capital holding</td></tr>
+  <tr><td>Profile</td><td>/profile</td><td>Edit name/phone, upload photo, change password</td></tr>
+</table>
+
+<h2>Applying for a Loan (Member)</h2>
+<ol>
+  <li>Go to <strong>My Loans</strong> → click <strong>Apply for Loan</strong></li>
+  <li>Select a loan product — terms are pre-filled from the product</li>
+  <li>Enter amount — system shows the 3× savings maximum</li>
+  <li>Enter repayment term (within the product's min/max)</li>
+  <li>Optionally add a purpose/note</li>
+  <li>Submit — loan created with <strong>pending</strong> status, goes to admin/staff for approval</li>
+</ol>
+
+<h2>Requesting a Withdrawal (Member)</h2>
+<ol>
+  <li>Go to <strong>My Savings</strong></li>
+  <li>Click <strong>Withdraw</strong> on the savings account</li>
+  <li>Enter amount (cannot exceed current balance) and reason</li>
+  <li>Submit — creates a pending withdrawal request for admin/staff to approve</li>
+  <li>Status tracked in the Withdrawal Requests table below the savings accounts</li>
+</ol>
+
+<div class="callout">
+  <strong>Note</strong>
+  Funds are not released immediately. All withdrawals require approval by office staff. Only one pending withdrawal request is allowed per savings account at a time.
+</div>
+
+<!-- SECTION 9 -->
+<h1 class="section-title page-break" id="s9"><span class="section-num">9</span> Public Website Guide</h1>
+<p>Local dev URL: <code>http://localhost:5174</code></p>
+
+<h2>Pages</h2>
+<table>
+  <tr><th>Page</th><th>Path</th><th>Key Content</th></tr>
+  <tr><td>Home</td><td>/</td><td>Hero, statistics, product overview, 5-step join process, cooperative values, CTA</td></tr>
+  <tr><td>About</td><td>/about</td><td>Who we are, mission &amp; vision, milestones, governance structure</td></tr>
+  <tr><td>Products &amp; Services</td><td>/products</td><td>Savings accounts, loan types, farm investment pool, benevolent fund</td></tr>
+  <tr><td>Membership</td><td>/membership</td><td>Member benefits, 5-stage onboarding process, application form</td></tr>
+  <tr><td>News</td><td>/news</td><td>Fetches from <code>GET /api/public/news</code> — published news from the admin dashboard</td></tr>
+  <tr><td>Contact</td><td>/contact</td><td>Contact information and contact form → inbox in admin dashboard</td></tr>
+</table>
+
+<h2>Membership Application Flow</h2>
+<ol>
+  <li>Visitor fills the form on <code>/membership</code></li>
+  <li>Sent to <code>POST /api/public/membership-applications</code> (no login needed)</li>
+  <li>A <strong>pending</strong> Borrower record is created in the database</li>
+  <li>Staff see it in <strong>Members</strong> (filter: pending)</li>
+  <li>Staff follow up, conduct orientation, activate the member → portal account auto-created</li>
+</ol>
+
+<h2>Design System</h2>
+<table>
+  <tr><th>Element</th><th>Value</th></tr>
+  <tr><td>Primary colour</td><td>Bush green — dark: <code>#193c27</code> / medium: <code>#265c3c</code> / mid: <code>#2d7249</code></td></tr>
+  <tr><td>Accent colour</td><td>Earthy amber — <code>#d4841f</code> (CTAs and highlights)</td></tr>
+  <tr><td>Heading font</td><td>Montserrat (Bold/ExtraBold)</td></tr>
+  <tr><td>Body font</td><td>Inter (Regular/Medium)</td></tr>
+  <tr><td>Logo file</td><td><code>website/public/logo.svg</code></td></tr>
+</table>
+
+<!-- SECTION 10 -->
+<h1 class="section-title page-break" id="s10"><span class="section-num">10</span> API Reference Summary</h1>
+<p>Base URL: <code>http://localhost:8000/api</code></p>
+
+<h2>Public (No Authentication)</h2>
+<table>
+  <tr><th>Method</th><th>Endpoint</th><th>Description</th></tr>
+  <tr><td>GET</td><td>/health</td><td>Health check for deployment platforms</td></tr>
+  <tr><td>POST</td><td>/auth/login</td><td>Login — returns bearer token + user object</td></tr>
+  <tr><td>POST</td><td>/public/membership-applications</td><td>Submit membership application from website</td></tr>
+  <tr><td>POST</td><td>/public/contact</td><td>Submit contact form message</td></tr>
+  <tr><td>GET</td><td>/public/news</td><td>Fetch published news articles</td></tr>
+  <tr><td>POST</td><td>/public/chat</td><td>Send live chat message</td></tr>
+  <tr><td>GET</td><td>/public/chat/{sessionId}</td><td>Poll for new chat messages</td></tr>
+</table>
+
+<h2>Protected (Bearer Token Required)</h2>
+<table>
+  <tr><th>Area</th><th>Endpoints</th></tr>
+  <tr><td>Auth</td><td>POST /auth/logout &nbsp;|&nbsp; GET /auth/me</td></tr>
+  <tr><td>Profile</td><td>GET/PUT /profile &nbsp;|&nbsp; POST /profile/photo &nbsp;|&nbsp; POST /profile/change-password</td></tr>
+  <tr><td>Dashboard</td><td>GET /dashboard</td></tr>
+  <tr><td>Members</td><td>Full CRUD /borrowers &nbsp;|&nbsp; PATCH /borrowers/{id} (includes approval)</td></tr>
+  <tr><td>Loan Products <em>(admin)</em></td><td>Full CRUD /loan-products</td></tr>
+  <tr><td>Loans</td><td>Full CRUD + /approve, /reject, /disburse, /top-up, /restructure, /write-off, /preview-schedule</td></tr>
+  <tr><td>Repayments</td><td>GET /repayments &nbsp;|&nbsp; GET/POST /loans/{id}/repayments</td></tr>
+  <tr><td>Savings</td><td>GET/POST /savings &nbsp;|&nbsp; /deposit, /withdraw, /post-interest per account</td></tr>
+  <tr><td>Withdrawal Requests</td><td>GET/POST /withdrawal-requests &nbsp;|&nbsp; POST /{id}/approve &nbsp;|&nbsp; POST /{id}/reject</td></tr>
+  <tr><td>Shares</td><td>GET/POST /members/{id}/shares &nbsp;|&nbsp; GET /shares/summary</td></tr>
+  <tr><td>Contributions</td><td>GET/POST /contributions &nbsp;|&nbsp; per-member view &nbsp;|&nbsp; schedules</td></tr>
+  <tr><td>Welfare Fund</td><td>GET /welfare/summary &nbsp;|&nbsp; contributions CRUD &nbsp;|&nbsp; claims CRUD + review + mark-paid</td></tr>
+  <tr><td>Expenses</td><td>Full CRUD /expenses</td></tr>
+  <tr><td>Groups</td><td>Full CRUD /groups + member add/remove</td></tr>
+  <tr><td>Guarantors / Collateral / Charges</td><td>Per-loan management</td></tr>
+  <tr><td>Documents</td><td>Upload/download/delete per borrower and per loan</td></tr>
+  <tr><td>Dividends</td><td>Calculate, store, approve, distribute</td></tr>
+  <tr><td>Governance</td><td>Board members + meeting minutes</td></tr>
+  <tr><td>Reports</td><td>6 reports under /reports/*</td></tr>
+  <tr><td>News</td><td>Full CRUD /news (admin/staff)</td></tr>
+  <tr><td>Inbox</td><td>Contact messages + live chat threads</td></tr>
+  <tr><td>Staff <em>(admin only)</em></td><td>GET/POST /staff &nbsp;|&nbsp; PUT/DELETE /staff/{id}</td></tr>
+  <tr><td>Settings <em>(admin only)</em></td><td>Company, users, SMS logs under /settings/*</td></tr>
+  <tr><td>Member Portal</td><td>GET /my/dashboard, /my/loans, /my/savings, /my/contributions, /my/shares, /my/withdrawal-requests &nbsp;|&nbsp; POST /my/loans (apply)</td></tr>
+</table>
+
+<!-- SECTION 11 -->
+<h1 class="section-title page-break" id="s11"><span class="section-num">11</span> Database Overview</h1>
+<p>Local database: <code>lms</code> (MySQL) &nbsp;|&nbsp; Production: PostgreSQL via Railway &nbsp;|&nbsp; 27 migrations applied</p>
+<table>
+  <tr><th>Table</th><th>Purpose</th></tr>
+  <tr><td>companies</td><td>SACCO tenants — currently one row (Sycamore, company_id = 1)</td></tr>
+  <tr><td>users</td><td>Staff and member accounts. Key columns: <code>role</code> (admin/staff/manager/loan_officer/cashier/member), <code>permissions</code> (JSON), <code>borrower_id</code> (links member to borrower record), <code>photo</code> (avatar path)</td></tr>
+  <tr><td>borrowers</td><td>Members — personal details, employment, status, monthly_savings_commitment</td></tr>
+  <tr><td>next_of_kin</td><td>Emergency contacts per member</td></tr>
+  <tr><td>loan_products</td><td>Loan templates — interest rate, method, fees, term limits</td></tr>
+  <tr><td>loans</td><td>Individual loan records — full lifecycle tracked here</td></tr>
+  <tr><td>loan_schedules</td><td>Auto-generated repayment schedule per loan</td></tr>
+  <tr><td>repayments</td><td>Actual payments received from members</td></tr>
+  <tr><td>loan_charges</td><td>Fees and penalties on loans</td></tr>
+  <tr><td>guarantors</td><td>Members guaranteeing other members' loans</td></tr>
+  <tr><td>collateral</td><td>Assets pledged against loans</td></tr>
+  <tr><td>savings_accounts</td><td>Savings account per member</td></tr>
+  <tr><td>savings_transactions</td><td>Deposits, withdrawals, interest postings on savings accounts</td></tr>
+  <tr><td>withdrawal_requests</td><td>Member withdrawal requests — pending / approved / rejected workflow</td></tr>
+  <tr><td>member_shares</td><td>Share capital per member</td></tr>
+  <tr><td>share_transactions</td><td>Share purchase history</td></tr>
+  <tr><td>contributions</td><td>Monthly contribution records per member</td></tr>
+  <tr><td>contribution_schedules</td><td>Expected monthly contribution commitment per member</td></tr>
+  <tr><td>welfare_contributions</td><td>Member welfare fund contributions per period (YYYY-MM)</td></tr>
+  <tr><td>welfare_claims</td><td>Welfare claims — type (bereavement/medical/emergency/other), review, paid status</td></tr>
+  <tr><td>expenses</td><td>Cooperative operating expenses</td></tr>
+  <tr><td>groups</td><td>Member lending or savings groups</td></tr>
+  <tr><td>group_members</td><td>Pivot — which members belong to which group</td></tr>
+  <tr><td>dividends</td><td>Year-end dividend declarations</td></tr>
+  <tr><td>dividend_allocations</td><td>Per-member dividend amounts per declaration</td></tr>
+  <tr><td>board_members</td><td>Elected officials (governance)</td></tr>
+  <tr><td>meeting_minutes</td><td>Board and general meeting records</td></tr>
+  <tr><td>news</td><td>News/announcement articles published to the public website</td></tr>
+  <tr><td>contact_messages</td><td>Contact form submissions from the website</td></tr>
+  <tr><td>chat_sessions / chat_messages</td><td>Live chat sessions from the website chat widget</td></tr>
+  <tr><td>documents</td><td>Uploaded files — polymorphic (attached to borrowers or loans)</td></tr>
+  <tr><td>sms_logs</td><td>Log of all SMS messages sent by the system</td></tr>
+  <tr><td>activity_logs</td><td>Audit trail of system actions</td></tr>
+  <tr><td>personal_access_tokens</td><td>Sanctum API authentication tokens</td></tr>
+</table>
+
+<!-- SECTION 12 -->
+<h1 class="section-title page-break" id="s12"><span class="section-num">12</span> Deployment Guide</h1>
+
+<h2>Current State</h2>
+<table>
+  <tr><th>Part</th><th>Status</th><th>URL</th></tr>
+  <tr><td>Public Website</td><td><span class="badge done">Live Preview</span></td><td>Netlify URL (shared with team)</td></tr>
+  <tr><td>Admin Dashboard + Member Portal</td><td><span class="badge pending">Local Only</span></td><td>http://localhost:5173</td></tr>
+  <tr><td>Laravel API</td><td><span class="badge pending">Local Only</span></td><td>http://localhost:8000</td></tr>
+</table>
+
+<h2>Full Production Deployment Steps</h2>
+
+<h3>Step 1 — Push Code to GitHub</h3>
+<pre>cd c:\laragon\www\lms
+git init
+git add .
+git commit -m "Initial commit"
+git remote add origin https://github.com/your-org/sycamore.git
+git push -u origin main</pre>
+
+<h3>Step 2 — Deploy API to Railway</h3>
+<ol>
+  <li>Create account at railway.app</li>
+  <li>New Project → Deploy from GitHub → select repo, root directory: <code>lms/lms</code></li>
+  <li>Add a PostgreSQL plugin in the Railway dashboard</li>
+  <li>Set required environment variables (see below)</li>
+  <li>Railway builds using the Dockerfile and deploys automatically</li>
+</ol>
+<pre>APP_ENV=production
+APP_KEY=         ← generate with: php artisan key:generate --show
+APP_DEBUG=false
+DB_CONNECTION=pgsql
+FILESYSTEM_DISK=public
+# DB_HOST / DB_DATABASE / DB_USERNAME / DB_PASSWORD provided by Railway PostgreSQL plugin</pre>
+
+<h3>Step 3 — Run Migrations on Production</h3>
+<p>In Railway dashboard → service shell:</p>
+<pre>php artisan migrate --force
+php artisan storage:link</pre>
+
+<h3>Step 4 — Deploy Frontends to Vercel</h3>
+<ol>
+  <li>New Vercel project → GitHub repo → root: <code>frontend</code> → env: <code>VITE_API_URL=https://your-api.railway.app/api</code></li>
+  <li>Second Vercel project → same repo → root: <code>website</code> → same env var</li>
+</ol>
+
+<!-- SECTION 13 -->
+<h1 class="section-title page-break" id="s13"><span class="section-num">13</span> What Is Complete</h1>
+
+<h2>Backend (Laravel API) <span class="badge done">Complete</span></h2>
+<ul>
+  <li>Token authentication (login, logout, profile, photo upload, password change)</li>
+  <li>Role-based access (admin, staff variants, member) with per-feature permission flags</li>
+  <li>Full member management with documents, next of kin, status workflow</li>
+  <li>Auto-creation of member portal accounts on approval (with duplicate email handling)</li>
+  <li>Loan products (admin-only), full loan lifecycle, schedule generation, repayments</li>
+  <li>Savings accounts, deposits/withdrawals, interest posting</li>
+  <li>Withdrawal request workflow (pending → approved/rejected)</li>
+  <li>Member shares and contributions with compliance tracking</li>
+  <li>Welfare fund — contributions, claims, review, paid workflow</li>
+  <li>Expenses, groups, guarantors, collateral, loan charges</li>
+  <li>6 financial reports, dividends, governance, news, inbox/chat</li>
+  <li>Staff management with generated passwords and permission control</li>
+  <li>Member portal endpoints: dashboard, loans (apply), savings, contributions, shares, withdrawal requests</li>
+  <li>Public website endpoints: membership application, contact, news, chat</li>
+</ul>
+
+<h2>Admin Dashboard <span class="badge done">Complete</span></h2>
+<ul>
+  <li>Login with role-based redirect (members → /my, staff → /)</li>
+  <li>Dashboard with live statistics and 6-month trend chart</li>
+  <li>Full member lifecycle management — approve/reject with auto-generated credentials modal</li>
+  <li>Savings compliance page with month picker and progress bars</li>
+  <li>Complete loan lifecycle (all actions, statements, receipts)</li>
+  <li>Savings detail with transactions; withdrawal request review</li>
+  <li>Welfare fund management (contributions, claims, review, mark-paid)</li>
+  <li>All financial reports, dividends, governance, groups</li>
+  <li>News management (publish to public website)</li>
+  <li>Inbox (contact messages + live chat)</li>
+  <li>Staff &amp; Access page (create staff, set permissions per feature)</li>
+  <li>Settings — company, users, SMS logs (admin-only)</li>
+  <li>Loan Products (admin-only)</li>
+  <li>Sidebar: permission-filtered nav, admin badge, profile link with avatar</li>
+  <li>Profile page (edit name/phone, upload photo, change password)</li>
+</ul>
+
+<h2>Member Portal <span class="badge done">Complete</span></h2>
+<ul>
+  <li>Overview dashboard with savings, loan eligibility, next payment, overdue alert</li>
+  <li>My Loans — all loans with schedules; Apply for Loan modal (respects 3× savings limit)</li>
+  <li>My Savings — accounts with transaction history; withdrawal request modal + request history</li>
+  <li>Contributions history, shares summary</li>
+  <li>Profile page (same as staff — edit info, photo, password)</li>
+</ul>
+
+<h2>Public Website <span class="badge done">Complete</span></h2>
+<ul>
+  <li>All 6 pages (Home, About, Products, Membership, News, Contact)</li>
+  <li>Bush green + earthy amber design, fully responsive</li>
+  <li>Membership form connected to API; news fetched dynamically from admin</li>
+  <li>WhatsApp floating button, SVG logo, custom favicon</li>
+</ul>
+
+<!-- SECTION 14 -->
+<h1 class="section-title page-break" id="s14"><span class="section-num">14</span> What Is Remaining</h1>
+
+<h2>High Priority — Must Do Before Go-Live</h2>
+<table>
+  <tr><th>Item</th><th>Description</th><th>Effort</th></tr>
+  <tr><td><strong>Create Admin Account</strong></td><td>Run <code>php artisan tinker</code> to create the first admin user, or build a seeder. No admin account means no one can log in to the dashboard.</td><td>15 min</td></tr>
+  <tr><td><strong>Replace Website Placeholders</strong></td><td>Phone numbers, email, social media links, and real photos need to be added to the website pages.</td><td>1–2 hours</td></tr>
+  <tr><td><strong>Production Deployment</strong></td><td>Deploy API to Railway and both frontends to Vercel. Set environment variables. Run migrations on production.</td><td>2–4 hours</td></tr>
+  <tr><td><strong>Database Backups</strong></td><td>Set up automated daily backups before real member data is entered. Railway has built-in backup options.</td><td>30 min</td></tr>
+  <tr><td><strong>Custom Domain</strong></td><td>Purchase and configure a domain (e.g. sycamorecoop.zm) for the website and admin dashboard.</td><td>1 hour</td></tr>
+  <tr><td><strong>Storage on Production</strong></td><td>Profile photos are stored on the server disk. For production, configure AWS S3 or Cloudflare R2 so uploads persist across deployments.</td><td>2–3 hours</td></tr>
+</table>
+
+<h2>Medium Priority — Next Phase</h2>
+<table>
+  <tr><th>Item</th><th>Description</th><th>Effort</th></tr>
+  <tr><td><strong>SMS Sending</strong></td><td>Africa's Talking is configured but no sending logic is built. Need SMS for loan reminders, repayment alerts, contribution nudges.</td><td>1–2 days</td></tr>
+  <tr><td><strong>PDF Export</strong></td><td>Reports and statements display in browser but cannot be downloaded as PDF. Add dompdf (backend) or react-pdf (frontend).</td><td>1–2 days</td></tr>
+  <tr><td><strong>Automated Penalty Application</strong></td><td>Overdue loans are flagged but penalties are not auto-applied. A scheduled command (artisan schedule) could apply daily penalties to overdue loans.</td><td>1 day</td></tr>
+  <tr><td><strong>Annual Savings Interest Bulk Post</strong></td><td>Interest posting is manual per account. A bulk command to post interest to all savings accounts at year end would be useful.</td><td>1 day</td></tr>
+  <tr><td><strong>Audit Trail UI</strong></td><td>Activity logs stored in DB but no screen to view them.</td><td>1 day</td></tr>
+  <tr><td><strong>WhatsApp Notifications</strong></td><td>Planned but not built. Can use Twilio WhatsApp API or Africa's Talking.</td><td>2–3 days</td></tr>
+  <tr><td><strong>Joining Fee</strong></td><td>One-time fee on membership activation — not yet built. Currently deferred.</td><td>1 day</td></tr>
+</table>
+
+<h2>Future</h2>
+<table>
+  <tr><th>Item</th><th>Description</th><th>Effort</th></tr>
+  <tr><td><strong>Mobile Money Integration</strong></td><td>MTN / Airtel Zambia for receiving contributions and repayments digitally.</td><td>2–3 weeks</td></tr>
+  <tr><td><strong>Mobile App / PWA</strong></td><td>Progressive web app for field officers to record repayments on the go.</td><td>3–4 weeks</td></tr>
+  <tr><td><strong>Member Welfare Claims (Portal)</strong></td><td>Members can currently submit welfare claims — this could be extended to allow them to track claim status in the portal.</td><td>1 day</td></tr>
+</table>
+
+<!-- SECTION 15 -->
+<h1 class="section-title page-break" id="s15"><span class="section-num">15</span> Known Issues &amp; Notes</h1>
+
+<div class="callout danger">
+  <strong>Security — Before Going Live</strong>
+  The APP_KEY in the repo must NOT be used in production. Run <code>php artisan key:generate</code> on the production server. Set <code>APP_DEBUG=false</code> in production — never expose Laravel debug output publicly.
+</div>
+
+<div class="callout warn">
+  <strong>Database Driver Difference (Reports)</strong>
+  Reports use <code>DATE_FORMAT()</code> which is MySQL syntax. If production uses PostgreSQL (Railway), update DashboardController and ReportController to use <code>TO_CHAR()</code>. Test all reports after deployment.
+</div>
+
+<div class="callout warn">
+  <strong>File Storage on Deployment</strong>
+  Profile photos and documents are stored in <code>storage/app/public/</code>. On Railway, the filesystem is ephemeral — files are lost on redeploy. Before go-live, configure <code>FILESYSTEM_DISK=s3</code> and set up an S3-compatible bucket (AWS S3, Cloudflare R2, etc.).
+</div>
+
+<div class="callout">
+  <strong>CORS Configuration</strong>
+  CORS currently allows all origins (<code>*</code>). Before production, update <code>lms/config/cors.php</code> to list only the specific frontend domains.
+</div>
+
+<div class="callout">
+  <strong>Member Account Email Conflicts</strong>
+  If a member's email address is already used by a staff account, their member portal login email is automatically set to <code>[phone]@sycamore.member</code>. The approval modal shows the actual login email that was assigned.
+</div>
+
+<div class="callout">
+  <strong>Hardcoded company_id = 1</strong>
+  The public website endpoints hardcode <code>company_id = 1</code>. This is correct for Sycamore's single-tenant setup.
+</div>
+
+<h2>Contact for Technical Questions</h2>
+<p>All system code is in <code>c:\laragon\www\lms\</code>. For technical questions, contact the development team at <strong>Stalwart Services Limited</strong> (omrihabeenzu1@gmail.com).</p>
+
+<br/><br/>
+<hr style="border:none;border-top:2px solid #e5f3eb;margin:32px 0"/>
+<p style="text-align:center;color:#6b7280;font-size:12px;">
+  Sycamore Agricultural Services Cooperative — System Documentation &nbsp;|&nbsp; Stalwart Services Limited &nbsp;|&nbsp; June 2026 &nbsp;|&nbsp; v1.1
+</p>
+
+</body>
+</html>

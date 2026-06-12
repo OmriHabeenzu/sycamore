@@ -1,0 +1,32 @@
+# Root-level ignores
+node_modules/
+backend/
+
+# Laravel
+lms/.env
+lms/.env.backup
+lms/storage/app/public/*
+!lms/storage/app/public/.gitkeep
+lms/storage/logs/*.log
+lms/bootstrap/cache/*.php
+
+# Frontend build artifacts (keep src, ignore dist)
+frontend/dist/
+frontend/node_modules/
+
+# Website build artifacts
+website/dist/
+website/node_modules/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.suo
+*.user
+
+# Misc
+*.docx

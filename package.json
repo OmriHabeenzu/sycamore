@@ -1,0 +1,17 @@
+{
+  "scripts": {
+    "dev": "concurrently --names \"API,UI\" --prefix-colors \"blue,green\" \"php lms/artisan serve --port=8000\" \"npm run dev --prefix frontend\""
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.5.0",
+    "concurrently": "^9.2.1",
+    "postcss": "^8.5.9",
+    "tailwindcss": "^4.2.2"
+  },
+  "dependencies": {
+    "axios": "^1.15.0",
+    "lucide-react": "^1.8.0",
+    "react-router-dom": "^7.14.1",
+    "recharts": "^3.8.1"
+  }
+}

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" width="200" height="60">
+  <!-- Icon block -->
+  <rect x="0" y="0" width="48" height="48" rx="12" fill="#265c3c"/>
+
+  <!-- Leaf icon (matches lucide Leaf) -->
+  <g transform="translate(24, 24)" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M11 20A7 7 0 0 1 4 13C4 9 7 5 12 3c3 4 4 7 3 10"/>
+    <path d="M12 3C12 3 9 10 4 13"/>
+    <line x1="12" y1="20" x2="12" y2="22"/>
+  </g>
+
+  <!-- Sycamore text -->
+  <text x="60" y="30" font-family="Montserrat, sans-serif" font-weight="700" font-size="20" fill="#193c27">Sycamore</text>
+
+  <!-- Cooperative subtext -->
+  <text x="61" y="44" font-family="Inter, sans-serif" font-weight="400" font-size="11" fill="#2d7249">Agricultural Cooperative</text>
+</svg>
